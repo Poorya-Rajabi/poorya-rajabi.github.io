@@ -4,11 +4,12 @@
 
 <script>
 import * as THREE from 'three'
-import base from "~/mixins/base";
+import base from "@/mixins/base";
+import firstSection from "@/mixins/firstSection";
 
 export default {
   name: "CanvasContainer",
-  mixins: [base],
+  mixins: [base, firstSection],
   data() {
     return {
       canvas: null,
@@ -33,6 +34,8 @@ export default {
   },
   mounted() {
     this.init()
+
+    this.createFirstSection()
 
     this.createObjects()
 
