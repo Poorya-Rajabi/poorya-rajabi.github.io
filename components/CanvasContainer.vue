@@ -6,10 +6,11 @@
 import * as THREE from 'three'
 import base from "@/mixins/base";
 import firstSection from "@/mixins/firstSection";
+import loaders from "@/mixins/loaders";
 
 export default {
   name: "CanvasContainer",
-  mixins: [base, firstSection],
+  mixins: [base, firstSection, loaders],
   data() {
     return {
       canvas: null,
@@ -34,6 +35,8 @@ export default {
   },
   mounted() {
     this.init()
+
+    this.loadModels()
 
     this.createFirstSection()
 

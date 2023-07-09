@@ -1,25 +1,28 @@
 import * as THREE from 'three'
+import { mapState } from 'vuex'
 
 export default {
+  computed: {
+    ...mapState(['boxTextures'])
+  },
   methods: {
     createFirstSection() {
-      const boxGeometry = new THREE.BoxBufferGeometry(2, 2, 2)
+      const boxGeometry = new THREE.PlaneBufferGeometry(5, 5 )
       const boxMaterial = new THREE.MeshStandardMaterial({
+        map: this.boxTextures.color,
+        aoMap: this.boxTextures.ambientOcclusion,
+        roughnessMap: this.boxTextures.roughness,
+        normalMap: this.boxTextures.normal,
         side: THREE.DoubleSide,
         metalness: 0,
-        roughness: 1,
+        roughness: 1.2,
         aoMapIntensity: 1,
-        // map: color,
-        // aoMap: ambientOcclusion,
-        // displacementMap: height,
-        // displacementScale: 0.05,
-        // metalnessMap: metalness,
-        // roughnessMap: roughness,
-        // normalMap: normal,
-        // // normalScale.set(0.5, 0.5)
       })
+      // boxMaterial.normalScale.set(0.5, 0.5)
       const box = new THREE.Mesh(boxGeometry, boxMaterial)
       this.scene.add(box)
+      // TODO
+      box.visible = false
     }
   },
 }
