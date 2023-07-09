@@ -20,7 +20,7 @@ export default {
     },
     createLight() {
       const directionalLight = new THREE.DirectionalLight('#ffffff', 1)
-      directionalLight.position.set(1, 1, 0)
+      directionalLight.position.set(1, 1, 3)
       this.scene.add(directionalLight)
     },
     createCamera() {
