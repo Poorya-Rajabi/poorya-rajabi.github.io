@@ -7,6 +7,7 @@ import * as THREE from 'three'
 import base from "@/mixins/base";
 import firstSection from "@/mixins/firstSection";
 import loaders from "@/mixins/loaders";
+import * as dat from "lil-gui";
 
 export default {
   name: "CanvasContainer",
@@ -21,7 +22,6 @@ export default {
       clock: new THREE.Clock(),
       previousTime: 0,
       objectsDistance: 4,
-      meshes: [],
       scrollY: window.scrollY,
       cursor: new THREE.Vector2(),
       sizes: {
@@ -30,7 +30,8 @@ export default {
       },
       parameters: {
         materialColor: '#317ea5'
-      }
+      },
+      gui: new dat.GUI()
     }
   },
   mounted() {
@@ -39,8 +40,6 @@ export default {
     this.loadModels()
 
     this.createFirstSection()
-
-    this.createObjects()
 
     this.createParticles()
 
@@ -54,7 +53,8 @@ export default {
         const i3 = i * 3
 
         positions[i3    ] = (Math.random() - 0.5) * 10
-        positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * this.meshes.length
+        // positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * this.meshes.length
+        positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * 3
         positions[i3 + 2] = (Math.random() - 0.5) * 10
       }
       const particlesGeometry = new THREE.BufferGeometry()
@@ -69,35 +69,6 @@ export default {
       })
       const particles = new THREE.Points(particlesGeometry, particlesMaterial)
       this.scene.add(particles)
-    },
-    createObjects() {
-      const material = new THREE.MeshStandardMaterial({
-        color: this.parameters.materialColor
-      })
-
-      const mesh1 = new THREE.Mesh(
-        new THREE.TorusGeometry(0.7, 0.4, 16, 60),
-        material
-      )
-      const mesh2 = new THREE.Mesh(
-        new THREE.ConeGeometry(1, 1.7, 100),
-        material
-      )
-      const mesh3 = new THREE.Mesh(
-        new THREE.TorusKnotGeometry(0.6, 0.25, 100, 16),
-        material
-      )
-      mesh1.position.y = - this.objectsDistance * 0
-      mesh2.position.y = - this.objectsDistance * 1
-      mesh3.position.y = - this.objectsDistance * 2
-
-      mesh1.position.x = this.sizes.width * 0.1 / 100
-      mesh2.position.x = - this.sizes.width * 0.1 / 100
-      mesh3.position.x = this.sizes.width * 0.1 / 100
-
-      this.scene.add(mesh1, mesh2, mesh3)
-
-      this.meshes = [ mesh1, mesh2, mesh3 ]
     }
   },
 }

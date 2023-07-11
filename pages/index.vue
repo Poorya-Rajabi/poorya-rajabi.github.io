@@ -1,7 +1,7 @@
 <template>
   <div>
-    <canvas-container />
     <template-container />
+    <canvas-container />
   </div>
 </template>
 
