@@ -24,6 +24,7 @@ export default {
       objectsDistance: 4,
       scrollY: window.scrollY,
       cursor: new THREE.Vector2(),
+      tars: null,
       sizes: {
         width: window.innerWidth,
         height: window.innerHeight

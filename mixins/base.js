@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import {mapMutations} from "vuex";
+import gsap from "gsap";
 
 export default {
   data() {
@@ -28,9 +29,14 @@ export default {
       this.cursorMoving()
     },
     createLight() {
-      const directionalLight = new THREE.DirectionalLight('#ffffff', 1)
+      const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
+      directionalLight.castShadow = true
+      directionalLight.shadow.camera.far = 15
+      directionalLight.shadow.mapSize.set(1024, 1024)
+      directionalLight.shadow.normalBias = 0.05
       directionalLight.position.set(1, 1, 3)
       this.scene.add(directionalLight)
+
     },
     createCamera() {
       this.cameraGroup = new THREE.Group()
@@ -40,7 +46,11 @@ export default {
       this.camera.position.z = 0.01
       this.cameraGroup.add(this.camera)
 
-      this.gui.add(this.camera.position, 'z').min(-10).max(10).step(0.01)
+      gsap.to(
+        this.camera.position,
+        { z: 10, duration: 3 })
+
+      this.gui.add(this.camera.position, 'z').min(-100).max(100).step(0.1)
     },
     resizing() {
       window.addEventListener('resize', () =>
@@ -119,6 +129,10 @@ export default {
       // for(const mesh of this.meshes) {
       //   mesh.rotation.x += deltaTime * 0.1
       //   mesh.rotation.y += deltaTime * 0.12
+      // }
+
+      // if (this.tars) {
+      //   this.tars.lookAt(this.camera.position)
       // }
 
       // Update Control

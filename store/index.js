@@ -1,5 +1,5 @@
 export const state = () => ({
-  boxTextures: {}
+  environmentMap: null
 })
 
 export const getters = {
@@ -9,8 +9,8 @@ export const getters = {
 }
 
 export const mutations = {
-  setBoxTextures(state, textures) {
-    state.boxTextures = textures
+  setEnvironmentMap(state, textures) {
+    state.environmentMap = textures
   }
 }
 

@@ -2,18 +2,21 @@
   <div>
     <template-container />
     <canvas-container />
+    <loading />
   </div>
 </template>
 
 <script>
-import CanvasContainer from "~/components/CanvasContainer";
-import TemplateContainer from "~/components/TemplateContainer";
+import CanvasContainer from "@/components/CanvasContainer";
+import TemplateContainer from "@/components/TemplateContainer";
+import Loading from "@/components/Loading";
 
 export default {
   name: 'IndexPage',
   components: {
     CanvasContainer,
-    TemplateContainer
+    TemplateContainer,
+    Loading
   },
 }
 </script>
