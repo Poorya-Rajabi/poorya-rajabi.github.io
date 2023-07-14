@@ -48,9 +48,9 @@ export default {
 
       gsap.to(
         this.camera.position,
-        { z: 10, duration: 3 })
+        { z: 12.5, duration: 3 })
 
-      this.gui.add(this.camera.position, 'z').min(-100).max(100).step(0.1)
+      this.gui.add(this.camera.position, 'z').min(-100).max(100).step(0.1).name('camera.p.z')
     },
     resizing() {
       window.addEventListener('resize', () =>
@@ -102,10 +102,13 @@ export default {
     createRenderer() {
       this.renderer = new THREE.WebGLRenderer({
         canvas: this.canvas,
-        alpha: true
+        alpha: true,
+        antialias: true
       })
       this.renderer.setSize(this.sizes.width, this.sizes.height)
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+      this.renderer.physicallyCorrectLights = true
+      this.renderer.outputEncoding = THREE.sRGBEncoding
     },
     createControl() {
       this.controls = new OrbitControls(this.camera, this.canvas)

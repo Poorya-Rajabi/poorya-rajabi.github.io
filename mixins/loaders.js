@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import gsap from "gsap";
 
 export default {
   data() {
@@ -10,7 +11,7 @@ export default {
       textureLoader: new THREE.TextureLoader(),
       cubeTextureLoader: new THREE.CubeTextureLoader(),
       earthTextures: {},
-      environmentMap: null
+      tarsEnv: null
     }
   },
   methods: {
@@ -30,16 +31,15 @@ export default {
       this.earthTextures.map = this.textureLoader.load('/textures/earth/earth-map.jpg')
     },
     loadCubeTexture() {
-      this.environmentMap = this.cubeTextureLoader.load([
-        '/textures/envMap/1/px.png',
-        '/textures/envMap/1/nx.png',
-        '/textures/envMap/1/py.png',
-        '/textures/envMap/1/ny.png',
-        '/textures/envMap/1/pz.png',
-        '/textures/envMap/1/nz.png'
+      this.tarsEnv = this.cubeTextureLoader.load([
+        '/textures/envMap/2/px.png',
+        '/textures/envMap/2/nx.png',
+        '/textures/envMap/2/py.png',
+        '/textures/envMap/2/ny.png',
+        '/textures/envMap/2/pz.png',
+        '/textures/envMap/2/nz.png'
       ])
-      this.environmentMap.encoding = THREE.sRGBEncoding
-      // this.scene.background = this.environmentMap
+      this.tarsEnv.encoding = THREE.sRGBEncoding
     },
     loadSpaceshipInside() {
       this.gltfLoader.load(
@@ -48,6 +48,12 @@ export default {
           this.scene.add(gltf.scene)
           gltf.scene.rotation.y = Math.PI * 0.5
           gltf.scene.position.z = 10
+
+          // gsap.to(
+          //   gltf.scene.rotation,
+          //   { y: Math.PI * 0.3, duration: 3, delay: 1.5 })
+
+          // this.gui.add(gltf.scene.rotation, 'y').min(-Math.PI * 2).max(Math.PI * 2).step(0.1).name('Spaceship.r.y')
         }
       )
     },
@@ -71,10 +77,14 @@ export default {
             return mesh.name === 'Tars004'
           })
 
+          // this.gui.add(x1.rotation, 'x').min(-20).max(20).step(0.01)
+          // this.gui.add(x1.rotation, 'y').min(-20).max(20).step(0.01)
+          // this.gui.add(x1.rotation, 'z').min(-20).max(20).step(0.01)
+
           const tars = new THREE.Group()
           tars.add(x1, x2, x3, x4)
           tars.scale.set(0.5, 0.5, 0.5)
-          tars.position.set(-2.12, -0.68, 9.16)
+          tars.position.set(-1.93, -0.78, 9.15)
 
           this.gui.add(tars.position, 'x').min(-20).max(20).step(0.01)
           this.gui.add(tars.position, 'y').min(-20).max(20).step(0.01)
@@ -83,23 +93,21 @@ export default {
           this.scene.add(tars)
           this.tars = tars
 
-          this.updateAllMaterials()
+          this.updateTarsEnvMaterials(tars)
         }
       )
     },
-    updateAllMaterials() {
-      this.scene.traverse((child) =>
-      {
+    updateTarsEnvMaterials(tars) {
+      tars.traverse((child) => {
         if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
         {
-          child.material.envMap = this.environmentMap
+          child.material.envMap = this.tarsEnv
           child.material.envMapIntensity = 2.5
           child.material.needsUpdate = true
           child.castShadow = true
           child.receiveShadow = true
         }
       })
-
     }
   },
 }
