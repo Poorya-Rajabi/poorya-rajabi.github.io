@@ -6,16 +6,31 @@ import gsap from "gsap";
 export default {
   data() {
     return {
+      loadingManager: null,
       dracoLoader: new DRACOLoader(),
-      gltfLoader: new GLTFLoader(),
-      textureLoader: new THREE.TextureLoader(),
-      cubeTextureLoader: new THREE.CubeTextureLoader(),
+      gltfLoader: null,
+      textureLoader: null,
+      cubeTextureLoader: null,
       earthTextures: {},
       tarsEnv: null
     }
   },
   methods: {
     loadModels() {
+      this.loadingManager = new THREE.LoadingManager(
+        () => {
+          console.log('Loaded')
+        },
+        (itemUrl, itemsLoaded, itemsTotal) => {
+          const progressRatio = itemsLoaded / itemsTotal
+          console.log(progressRatio)
+        }
+      )
+
+      this.gltfLoader = new GLTFLoader(this.loadingManager)
+      this.textureLoader = new THREE.TextureLoader(this.loadingManager)
+      this.cubeTextureLoader = new THREE.CubeTextureLoader(this.loadingManager)
+
       this.dracoLoader.setDecoderPath('/draco/')
       this.gltfLoader.setDRACOLoader(this.dracoLoader)
 
@@ -100,13 +115,23 @@ export default {
 
           gsap.to(
             tars.position,
-            { x: 5, duration: 3, delay: 3.8 })
+            { x: 5, duration: 3, delay: 3.4 })
           gsap.to(
             tars.rotation,
-            { z: -Math.PI * 4, duration: 3, delay: 3.8 })
+            { z: -Math.PI * 4, duration: 3, delay: 3.4 })
           // this.gui.add(tars.position, 'x').min(-20).max(20).step(0.01)
           // this.gui.add(tars.position, 'y').min(-20).max(20).step(0.01)
           // this.gui.add(tars.position, 'z').min(-20).max(20).step(0.01)
+
+          gsap.to(
+            x1.rotation,
+            { z: 0, duration: 0.8, delay: 6 })
+          gsap.to(
+            x3.rotation,
+            { z: 0, duration: 0.8, delay: 6 })
+          gsap.to(
+            x4.rotation,
+            { z: 0, duration: 0.8, delay: 6 })
 
           this.scene.add(tars)
           this.tars = tars
