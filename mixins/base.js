@@ -48,7 +48,7 @@ export default {
 
       gsap.to(
         this.camera.position,
-        { z: 13.5, duration: 3 })
+        { z: 17, duration: 3 })
 
       this.gui.add(this.camera.position, 'z').min(-100).max(100).step(0.1).name('camera.p.z')
     },

@@ -38,7 +38,7 @@ export default {
 
       this.loadCubeTexture()
 
-      this.loadSpaceshipInside()
+      this.loadCorridor()
 
       this.loadTars()
     },
@@ -56,13 +56,14 @@ export default {
       ])
       this.tarsEnv.encoding = THREE.sRGBEncoding
     },
-    loadSpaceshipInside() {
+    loadCorridor() {
       this.gltfLoader.load(
-        '/models/Spaceship-inside.gltf',
+        '/models/corridor/corridor.gltf',
         (gltf) => {
+          gltf.scene.rotation.y = -Math.PI * 0.5
+          gltf.scene.scale.set(0.5, 0.5, 0.5)
+          gltf.scene.position.set(-2, 0, 10)
           this.scene.add(gltf.scene)
-          gltf.scene.rotation.y = Math.PI * 0.5
-          gltf.scene.position.z = 10
 
           // gsap.to(
           //   gltf.scene.rotation,
@@ -100,7 +101,7 @@ export default {
           const tars = new THREE.Group()
           tars.add(x1, x2, x3, x4)
           tars.scale.set(0.5, 0.5, 0.5)
-          tars.position.set(-1.93, -0.78, 9.15)
+          tars.position.set(-1.93, -0.9, 11.3)
 
           gsap.to(
             x1.rotation,
@@ -115,10 +116,11 @@ export default {
 
           gsap.to(
             tars.position,
-            { x: 5, duration: 3, delay: 3.4 })
+            { x: 5, duration: 3, delay: 3.8 })
           gsap.to(
             tars.rotation,
-            { z: -Math.PI * 4, duration: 3, delay: 3.4 })
+            { z: -Math.PI * 4, duration: 3, delay: 3.8 })
+
           // this.gui.add(tars.position, 'x').min(-20).max(20).step(0.01)
           // this.gui.add(tars.position, 'y').min(-20).max(20).step(0.01)
           // this.gui.add(tars.position, 'z').min(-20).max(20).step(0.01)

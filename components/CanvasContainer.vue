@@ -56,7 +56,7 @@ export default {
         positions[i3    ] = (Math.random() - 0.5) * 10
         // positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * this.meshes.length
         positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * 3
-        positions[i3 + 2] = (Math.random() - 0.5) * 10
+        positions[i3 + 2] = (Math.random() - 0.5) * 30
       }
       const particlesGeometry = new THREE.BufferGeometry()
       particlesGeometry.setAttribute(

@@ -1,14 +1,17 @@
 <template>
   <div class="main">
     <section class="section">
-      <h1>My Portfolio</h1>
+      <div class="flex flex-row">
+        <span class="mb-0">Hi, I'm</span>
+        <h2>Poorya Rajabi</h2>
+      </div>
     </section>
-    <section class="section">
-      <h2>My projects</h2>
-    </section>
-    <section class="section">
-      <h2>Contact me</h2>
-    </section>
+<!--    <section class="section">-->
+<!--      <h2>My projects</h2>-->
+<!--    </section>-->
+<!--    <section class="section">-->
+<!--      <h2>Contact me</h2>-->
+<!--    </section>-->
   </div>
 </template>
 
@@ -32,7 +35,7 @@ export default {
     height: 100vh;
     position: relative;
     font-family: 'Cabin', sans-serif;
-    color: #317ea5;
+    color: white;
     text-transform: uppercase;
     font-size: 7vmin;
     padding-left: 10%;
@@ -40,6 +43,14 @@ export default {
 
     &:nth-child(even) {
       justify-content: flex-end;
+    }
+
+    span {
+    margin-bottom: 0;
+    }
+
+    h2 {
+      margin-top: 16px;
     }
   }
 }

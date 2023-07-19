@@ -1,7 +1,7 @@
 <template>
   <div>
-    <template-container />
     <canvas-container />
+    <template-container />
     <loading />
   </div>
 </template>
