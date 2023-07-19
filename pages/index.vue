@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-black">
     <canvas-container />
     <template-container />
     <loading />

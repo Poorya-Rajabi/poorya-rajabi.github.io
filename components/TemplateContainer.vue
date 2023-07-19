@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <section class="section">
-      <div class="flex flex-row">
+      <div class="flex flex-col">
         <span class="mb-0">Hi, I'm</span>
         <h2>Poorya Rajabi</h2>
       </div>
@@ -27,16 +27,12 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  background-color: black;
-
   .section {
     display: flex;
     align-items: center;
     height: 100vh;
     position: relative;
-    font-family: 'Cabin', sans-serif;
     color: white;
-    text-transform: uppercase;
     font-size: 7vmin;
     padding-left: 10%;
     padding-right: 10%;
