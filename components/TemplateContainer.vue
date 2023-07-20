@@ -6,24 +6,22 @@
         <h2>Poorya Rajabi</h2>
       </div>
     </section>
-<!--    <section class="section">-->
-<!--      <h2>My projects</h2>-->
-<!--    </section>-->
-<!--    <section class="section">-->
-<!--      <h2>Contact me</h2>-->
-<!--    </section>-->
+    <!--    <section class="section">-->
+    <!--      <h2>My projects</h2>-->
+    <!--    </section>-->
+    <!--    <section class="section">-->
+    <!--      <h2>Contact me</h2>-->
+    <!--    </section>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: "TemplateContainer"
+  name: 'TemplateContainer'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
 
 <style scoped lang="scss">
 .main {
@@ -42,7 +40,7 @@ export default {
     }
 
     span {
-    margin-bottom: 0;
+      margin-bottom: 0;
     }
 
     h2 {

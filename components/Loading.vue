@@ -4,10 +4,8 @@
 
 <script>
 export default {
-  name: "Loading"
+  name: 'LoadingComponent'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

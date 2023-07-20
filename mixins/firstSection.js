@@ -21,12 +21,13 @@ export default {
       earth.position.z = -20
       this.scene.add(earth)
 
-      gsap.to(
-        earth.rotation,
-        { y: Math.PI * 2, repeat: -1, duration: 60, ease: 'none' })
-      gsap.to(
-        earth.position,
-        { z: -100, duration: 120, ease: 'none' })
+      gsap.to(earth.rotation, {
+        y: Math.PI * 2,
+        repeat: -1,
+        duration: 60,
+        ease: 'none'
+      })
+      gsap.to(earth.position, { z: -100, duration: 120, ease: 'none' })
     },
     createGlasses() {
       const glassesGeometry = new THREE.PlaneBufferGeometry(14.5, 2.5)
@@ -34,11 +35,11 @@ export default {
         roughness: 0.15,
         metalness: 0.5,
         transmission: 1,
-        thickness: 0, // Add refraction!
+        thickness: 0 // Add refraction!
       })
       const glasses = new THREE.Mesh(glassesGeometry, glassesMaterial)
       glasses.position.set(-2, 0, 9.13)
       this.scene.add(glasses)
     }
-  },
+  }
 }

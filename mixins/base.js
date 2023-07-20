@@ -1,7 +1,7 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import {mapMutations} from "vuex";
-import gsap from "gsap";
+import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { mapMutations } from 'vuex'
+import gsap from 'gsap'
 
 export default {
   data() {
@@ -36,25 +36,31 @@ export default {
       directionalLight.shadow.normalBias = 0.05
       directionalLight.position.set(1, 1, 3)
       this.scene.add(directionalLight)
-
     },
     createCamera() {
       this.cameraGroup = new THREE.Group()
       this.scene.add(this.cameraGroup)
 
-      this.camera = new THREE.PerspectiveCamera(35, this.sizes.width / this.sizes.height, 0.1, 100)
+      this.camera = new THREE.PerspectiveCamera(
+        35,
+        this.sizes.width / this.sizes.height,
+        0.1,
+        100
+      )
       this.camera.position.z = 0.01
       this.cameraGroup.add(this.camera)
 
-      gsap.to(
-        this.camera.position,
-        { z: 17, duration: 3 })
+      gsap.to(this.camera.position, { z: 17, duration: 3 })
 
-      this.gui.add(this.camera.position, 'z').min(-100).max(100).step(0.1).name('camera.p.z')
+      this.gui
+        .add(this.camera.position, 'z')
+        .min(-100)
+        .max(100)
+        .step(0.1)
+        .name('camera.p.z')
     },
     resizing() {
-      window.addEventListener('resize', () =>
-      {
+      window.addEventListener('resize', () => {
         console.log('resize')
         // Update sizes
         this.sizes.width = window.innerWidth
@@ -77,7 +83,7 @@ export default {
 
         const newSection = Math.round(window.scrollY / this.sizes.height)
 
-        if(newSection !== currentSection) {
+        if (newSection !== currentSection) {
           currentSection = newSection
 
           // gsap.to(
@@ -139,7 +145,7 @@ export default {
       // }
 
       // Update Control
-      if(this.controls) {
+      if (this.controls) {
         this.controls.update()
       }
 
@@ -149,5 +155,5 @@ export default {
       // Call tick again on the next frame
       window.requestAnimationFrame(this.tick)
     }
-  },
+  }
 }

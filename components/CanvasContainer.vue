@@ -1,16 +1,16 @@
 <template>
-  <canvas class="webgl" ref="webgl"/>
+  <canvas ref="webgl" class="webgl" />
 </template>
 
 <script>
 import * as THREE from 'three'
-import base from "@/mixins/base";
-import firstSection from "@/mixins/firstSection";
-import loaders from "@/mixins/loaders";
-import * as dat from "lil-gui";
+import * as dat from 'lil-gui'
+import base from '@/mixins/base'
+import firstSection from '@/mixins/firstSection'
+import loaders from '@/mixins/loaders'
 
 export default {
-  name: "CanvasContainer",
+  name: 'CanvasContainer',
   mixins: [base, firstSection, loaders],
   data() {
     return {
@@ -50,12 +50,13 @@ export default {
     createParticles() {
       const particlesCount = 200
       const positions = new Float32Array(particlesCount * 3)
-      for( let i = 0; i < particlesCount; i++ ) {
+      for (let i = 0; i < particlesCount; i++) {
         const i3 = i * 3
 
-        positions[i3    ] = (Math.random() - 0.5) * 10
+        positions[i3] = (Math.random() - 0.5) * 10
         // positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * this.meshes.length
-        positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * 3
+        positions[i3 + 1] =
+          this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * 3
         positions[i3 + 2] = (Math.random() - 0.5) * 30
       }
       const particlesGeometry = new THREE.BufferGeometry()
@@ -71,7 +72,7 @@ export default {
       const particles = new THREE.Points(particlesGeometry, particlesMaterial)
       this.scene.add(particles)
     }
-  },
+  }
 }
 </script>
 

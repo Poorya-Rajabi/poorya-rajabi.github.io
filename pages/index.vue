@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import CanvasContainer from "@/components/CanvasContainer";
-import TemplateContainer from "@/components/TemplateContainer";
-import Loading from "@/components/Loading";
+import CanvasContainer from '@/components/CanvasContainer'
+import TemplateContainer from '@/components/TemplateContainer'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'IndexPage',
@@ -17,7 +17,7 @@ export default {
     CanvasContainer,
     TemplateContainer,
     Loading
-  },
+  }
 }
 </script>
 
