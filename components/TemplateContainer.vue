@@ -2,8 +2,8 @@
   <div class="main">
     <section class="section">
       <div class="flex flex-col">
-        <span class="mb-0">Hello, I'm</span>
-        <h2 ref="name">Poorya Rajabi</h2>
+        <span class="mb-0 mt-16 text-5xl">Hello, I'm</span>
+        <h2 ref="name" class="mb-40">Poorya Rajabi</h2>
       </div>
     </section>
     <!--    <section class="section">-->
@@ -20,7 +20,7 @@ export default {
   name: 'TemplateContainer',
   mounted() {
     const title = this.$refs.name
-    const CHAR_TIME = 30
+    const CHAR_TIME = 60
 
     let text, index
 

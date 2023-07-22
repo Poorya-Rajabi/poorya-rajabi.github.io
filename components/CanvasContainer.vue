@@ -8,10 +8,11 @@ import * as dat from 'lil-gui'
 import base from '@/mixins/base'
 import firstSection from '@/mixins/firstSection'
 import loaders from '@/mixins/loaders'
+import loading from "@/mixins/loading";
 
 export default {
   name: 'CanvasContainer',
-  mixins: [base, firstSection, loaders],
+  mixins: [base, firstSection, loaders, loading],
   data() {
     return {
       canvas: null,
@@ -24,7 +25,9 @@ export default {
       objectsDistance: 4,
       scrollY: window.scrollY,
       cursor: new THREE.Vector2(),
-      tars: null,
+      tars: {},
+      earth: null,
+      overlayMaterial: null,
       sizes: {
         width: window.innerWidth,
         height: window.innerHeight
@@ -37,6 +40,8 @@ export default {
   },
   mounted() {
     this.init()
+
+    this.setOverlay()
 
     this.loadModels()
 
@@ -57,7 +62,7 @@ export default {
         // positions[i3 + 1] = this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * this.meshes.length
         positions[i3 + 1] =
           this.objectsDistance * 0.5 - Math.random() * this.objectsDistance * 3
-        positions[i3 + 2] = (Math.random() - 0.5) * 30
+        positions[i3 + 2] = (Math.random() - 0.5) * 10
       }
       const particlesGeometry = new THREE.BufferGeometry()
       particlesGeometry.setAttribute(

@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { mapMutations } from 'vuex'
-import gsap from 'gsap'
+// import gsap from 'gsap'
 
 export default {
   data() {
@@ -10,7 +9,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['addItemToGUI']),
     init() {
       this.canvas = this.$refs.webgl
 
@@ -49,15 +47,6 @@ export default {
       )
       this.camera.position.z = 0.01
       this.cameraGroup.add(this.camera)
-
-      gsap.to(this.camera.position, { z: 17, duration: 3 })
-
-      this.gui
-        .add(this.camera.position, 'z')
-        .min(-100)
-        .max(100)
-        .step(0.1)
-        .name('camera.p.z')
     },
     resizing() {
       window.addEventListener('resize', () => {
@@ -121,9 +110,9 @@ export default {
       this.controls.enableDamping = true
     },
     tick() {
-      const elapsedTime = this.clock.getElapsedTime()
-      const deltaTime = elapsedTime - this.previousTime
-      this.previousTime = elapsedTime
+      // const elapsedTime = this.clock.getElapsedTime()
+      // const deltaTime = elapsedTime - this.previousTime
+      // this.previousTime = elapsedTime
 
       // Scroll
       // this.camera.position.y = - scrollY / this.sizes.height * this.objectsDistance

@@ -1,5 +1,6 @@
 export const state = () => ({
-  environmentMap: null
+  isLoading: true,
+  loadingProgressRatio: 0
 })
 
 export const getters = {
@@ -9,8 +10,11 @@ export const getters = {
 }
 
 export const mutations = {
-  setEnvironmentMap(state, textures) {
-    state.environmentMap = textures
+  setProgressRatio(state, progressRatio) {
+    state.loadingProgressRatio = progressRatio
+  },
+  setLoadingStatus(state, status) {
+    state.isLoading = status
   }
 }
 
