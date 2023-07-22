@@ -2,8 +2,8 @@
   <div class="main">
     <section class="section">
       <div class="flex flex-col">
-        <span class="mb-0">Hi, I'm</span>
-        <h2>Poorya Rajabi</h2>
+        <span class="mb-0">Hello, I'm</span>
+        <h2 ref="name">Poorya Rajabi</h2>
       </div>
     </section>
     <!--    <section class="section">-->
@@ -17,7 +17,44 @@
 
 <script>
 export default {
-  name: 'TemplateContainer'
+  name: 'TemplateContainer',
+  mounted() {
+    const title = this.$refs.name
+    const CHAR_TIME = 30
+
+    let text, index
+
+    function requestCharAnimation(char, value) {
+      setTimeout(function() {
+        char.textContent = value
+        char.classList.add("fade-in")
+      }, CHAR_TIME)
+    }
+
+    function addChar() {
+      const char = document.createElement("span")
+      char.classList.add("char")
+      char.textContent = "▌"
+      title.appendChild(char)
+      requestCharAnimation(char, text.substr(index++, 1))
+      if (index < text.length) {
+        requestChar()
+      }
+    }
+
+    function requestChar(delay = 0) {
+      setTimeout(addChar, CHAR_TIME + delay)
+    }
+
+    function start() {
+      index = 0
+      text = title.textContent.trim()
+      title.textContent = ""
+      requestChar(1000)
+    }
+
+    start();
+  }
 }
 </script>
 
@@ -46,6 +83,22 @@ export default {
     h2 {
       margin-top: 16px;
     }
+  }
+}
+
+h2 {
+  font-weight: normal;
+  letter-spacing: 0.5rem;
+}
+.char {
+  color: #fff;
+  transition: color ease-out 0.3s, text-shadow ease-out 0.3s;
+  text-shadow: 0 0 4rem #fff;
+
+  &.fade-in {
+    color: #0cf;
+    transition: color ease-out 0.3s, text-shadow ease-out 0.3s;
+    text-shadow: 0 0 1rem #0cf;
   }
 }
 </style>
