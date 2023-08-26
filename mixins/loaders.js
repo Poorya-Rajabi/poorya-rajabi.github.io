@@ -74,6 +74,7 @@ export default {
         gltf.scene.rotation.y = -Math.PI * 0.5
         gltf.scene.scale.set(0.5, 0.5, 0.5)
         gltf.scene.position.set(-2, 0, 10)
+        gltf.scene.receiveShadow = true
         this.scene.add(gltf.scene)
       })
     },
@@ -91,17 +92,20 @@ export default {
           this.tars.add(this.tars[`tars00${i}`])
         }
 
-        this.tars.scale.set(0.5, 0.5, 0.5)
-        this.tars.position.set(-1.93, -0.9, 11.3)
+        this.tars.tars001.rotation.z = -Math.PI * 0.5
+        this.tars.tars003.rotation.z = -Math.PI * 0.25
+        this.tars.tars004.rotation.z = -Math.PI * 0.8
+        this.tars.scale.set(0.7, 0.7, 0.7)
+        this.tars.position.set(-5.93, -0.62, 11)
 
         // this.gui.add(x1.rotation, 'z').min(-20).max(20).step(0.01).name('x1')
         // this.gui.add(x2.rotation, 'z').min(-20).max(20).step(0.01).name('x2')
         // this.gui.add(x3.rotation, 'z').min(-20).max(20).step(0.01).name('x3')
         // this.gui.add(x4.rotation, 'z').min(-20).max(20).step(0.01).name('x4')
 
-        // this.gui.add(tars.position, 'x').min(-20).max(20).step(0.01)
-        // this.gui.add(tars.position, 'y').min(-20).max(20).step(0.01)
-        // this.gui.add(tars.position, 'z').min(-20).max(20).step(0.01)
+        // this.gui.add(this.tars.position, 'x').min(-20).max(20).step(0.01)
+        // this.gui.add(this.tars.position, 'y').min(-20).max(20).step(0.01)
+        // this.gui.add(this.tars.position, 'z').min(-20).max(20).step(0.01)
 
         // gsap.registerPlugin(ScrollTrigger);
         // // ScrollTrigger.addEventListener('scrollEnd', () => console.log("scrolling ended!"))
@@ -135,7 +139,6 @@ export default {
         //   // .from(".icons-animated #OpenMail", {duration: 10, x: -450, y: -150, scale: 0.35, rotation: -40, autoAlpha: 0}, "-=12.5")
         //
         //   .to(x1.rotation, {duration: 10, z: -Math.PI * 0.5, ease: "ease-out"})
-
         this.scene.add(this.tars)
 
         this.updateTarsEnvMaterials(this.tars)
@@ -170,16 +173,20 @@ export default {
       gsap.to(this.camera.position, { z: 17, duration: 3, delay: 0.5 })
 
       // tars animation
-      gsap.to(this.tars.tars001?.rotation, { z: -Math.PI * 0.5, duration: 0.8, delay: 3.5 })
-      gsap.to(this.tars.tars003?.rotation, { z: -Math.PI * 0.2, duration: 0.8, delay: 3.5 })
-      gsap.to(this.tars.tars004?.rotation, { z: -Math.PI * 0.8, duration: 0.8, delay: 3.5 })
+      // gsap.to(this.tars.tars001?.rotation, { z: -Math.PI * 0.5, duration: 0.8, delay: 2.5 })
+      // gsap.to(this.tars.tars003?.rotation, { z: -Math.PI * 0.25, duration: 0.8, delay: 2.5 })
+      // gsap.to(this.tars.tars004?.rotation, { z: -Math.PI * 0.8, duration: 0.8, delay: 2.5 })
 
-      gsap.to(this.tars.position, { x: 5, duration: 3, delay: 4.3 })
-      gsap.to(this.tars.rotation, { z: -Math.PI * 4, duration: 3, delay: 4.3 })
+      // V2
+      gsap.to(this.tars.position, { x: 1.5, duration: 3, delay: 2.5 })
+      gsap.to(this.tars.rotation, { z: -Math.PI * 4, duration: 3, delay: 2.5 })
 
-      gsap.to(this.tars.tars001?.rotation, { z: 0, duration: 0.8, delay: 6.5 })
-      gsap.to(this.tars.tars003?.rotation, { z: 0, duration: 0.8, delay: 6.5 })
-      gsap.to(this.tars.tars004?.rotation, { z: 0, duration: 0.8, delay: 6.5 })
+      gsap.to(this.tars.tars001?.rotation, { z: 0, duration: 1, delay: 4.5 })
+      gsap.to(this.tars.tars003?.rotation, { z: 0, duration: 1, delay: 4.5 })
+      gsap.to(this.tars.tars004?.rotation, { z: 0, duration: 1, delay: 4.5 })
+
+      gsap.to(this.tars.rotation, { y: -Math.PI * 0.65, duration: 1.2, delay: 4.3 })
+      gsap.to(this.tars.position, { z: 11.3, duration: 1, delay: 4.3 })
     }
   }
 }

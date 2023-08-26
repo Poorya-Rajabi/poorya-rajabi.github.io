@@ -19,6 +19,7 @@
     "nuxt": "^2.15.8",
     "postcss-preset-env": "^9.0.0",
     "scrolltrigger": "^1.0.1",
+    "stats.js": "^0.17.0",
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10"

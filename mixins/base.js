@@ -1,16 +1,20 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import * as Stats from 'stats.js'
 // import gsap from 'gsap'
 
 export default {
   data() {
     return {
-      controls: null
+      controls: null,
+      stats: null
     }
   },
   methods: {
     init() {
       this.canvas = this.$refs.webgl
+
+      this.statsInit()
 
       this.resizing()
 
@@ -26,13 +30,21 @@ export default {
 
       this.cursorMoving()
     },
+    statsInit() {
+      this.stats = new Stats()
+      this.stats.showPanel(0) // 0: fps, 1: ms, 2: mb, 3+: custom
+      this.stats.showPanel(1)
+      this.stats.showPanel(2)
+      this.stats.dom.className = "stats";
+      document.body.appendChild(this.stats.dom)
+    },
     createLight() {
       const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
       directionalLight.castShadow = true
       directionalLight.shadow.camera.far = 15
       directionalLight.shadow.mapSize.set(1024, 1024)
       directionalLight.shadow.normalBias = 0.05
-      directionalLight.position.set(1, 1, 3)
+      directionalLight.position.set(0, 1, 3)
       this.scene.add(directionalLight)
     },
     createCamera() {
@@ -89,10 +101,10 @@ export default {
       })
     },
     cursorMoving() {
-      // window.addEventListener('mousemove', (event) => {
-      //   this.cursor.x = (event.clientX / this.sizes.width) - 0.5
-      //   this.cursor.y = (event.clientY / this.sizes.height) - 0.5
-      // })
+      window.addEventListener('mousemove', (event) => {
+        this.cursor.x = (event.clientX / this.sizes.width) - 0.5
+        this.cursor.y = (event.clientY / this.sizes.height) - 0.5
+      })
     },
     createRenderer() {
       this.renderer = new THREE.WebGLRenderer({
@@ -110,27 +122,23 @@ export default {
       this.controls.enableDamping = true
     },
     tick() {
-      // const elapsedTime = this.clock.getElapsedTime()
-      // const deltaTime = elapsedTime - this.previousTime
-      // this.previousTime = elapsedTime
+      const elapsedTime = this.clock.getElapsedTime()
+      const deltaTime = elapsedTime - this.previousTime
+      this.previousTime = elapsedTime
 
       // Scroll
       // this.camera.position.y = - scrollY / this.sizes.height * this.objectsDistance
 
       // Parallax
-      // const  parallaxX = this.cursor.x * 0.5
-      // const  parallaxY = - this.cursor.y * 0.5
-      // this.cameraGroup.position.x += (parallaxX - this.cameraGroup.position.x) * 5 * deltaTime
-      // this.cameraGroup.position.y += (parallaxY - this.cameraGroup.position.y) * 5 * deltaTime
+      const  parallaxX = this.cursor.x * 0.5
+      const  parallaxY = - this.cursor.y * 0.5
+      this.cameraGroup.position.x += (parallaxX - this.cameraGroup.position.x) * 5 * deltaTime
+      this.cameraGroup.position.y += (parallaxY - this.cameraGroup.position.y) * 5 * deltaTime
 
       // Animate Meshes
       // for(const mesh of this.meshes) {
       //   mesh.rotation.x += deltaTime * 0.1
       //   mesh.rotation.y += deltaTime * 0.12
-      // }
-
-      // if (this.tars) {
-      //   this.tars.lookAt(this.camera.position)
       // }
 
       // Update Control
@@ -143,6 +151,7 @@ export default {
 
       // Call tick again on the next frame
       window.requestAnimationFrame(this.tick)
+      this.stats.update()
     }
   }
 }

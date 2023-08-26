@@ -26,4 +26,9 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.stats,
+.stats canvas {
+  display: flex !important;
+}
 </style>
