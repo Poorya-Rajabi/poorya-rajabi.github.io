@@ -6,6 +6,14 @@
         <h2 ref="name" class="mb-40">Poorya Rajabi</h2>
       </div>
     </section>
+    <section
+      v-if="firstAnimationIsDone"
+      class="section">
+      <div class="flex flex-col">
+        <h2 class="mb-0 mt-16">Experience</h2>
+        <span class="mb-40">Lorem ipsum doet lorem skills javascript</span>
+      </div>
+    </section>
     <!--    <section class="section">-->
     <!--      <h2>My projects</h2>-->
     <!--    </section>-->
@@ -16,8 +24,13 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: 'TemplateContainer',
+  computed: {
+    ...mapState(['firstAnimationIsDone'])
+  },
   mounted() {
     const title = this.$refs.name
     const CHAR_TIME = 60

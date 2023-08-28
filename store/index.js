@@ -1,6 +1,7 @@
 export const state = () => ({
   isLoading: true,
-  loadingProgressRatio: 0
+  loadingProgressRatio: 0,
+  firstAnimationIsDone: false
 })
 
 export const getters = {
@@ -15,6 +16,9 @@ export const mutations = {
   },
   setLoadingStatus(state, status) {
     state.isLoading = status
+  },
+  setFirstAnimationStatus(state) {
+    state.firstAnimationIsDone = true
   }
 }
 

@@ -1,3 +1,4 @@
+import { mapState } from "vuex";
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as Stats from 'stats.js'
@@ -9,6 +10,9 @@ export default {
       controls: null,
       stats: null
     }
+  },
+  computed: {
+    ...mapState(['firstAnimationIsDone'])
   },
   methods: {
     init() {
@@ -98,6 +102,12 @@ export default {
           //   }
           // )
         }
+
+        if (this.firstAnimationIsDone) {
+          this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
+          this.cameraGroup.position.x = scrollY / this.sizes.height * 7
+          this.camera.rotation.y = scrollY / this.sizes.height * Math.PI / 10
+        }
       })
     },
     cursorMoving() {
@@ -127,13 +137,14 @@ export default {
       this.previousTime = elapsedTime
 
       // Scroll
-      // this.camera.position.y = - scrollY / this.sizes.height * this.objectsDistance
+      // this.camera.position.z = - scrollY / this.sizes.height
+      // this.camera.rotation.y = - scrollY / this.sizes.height
 
       // Parallax
-      const  parallaxX = this.cursor.x * 0.5
-      const  parallaxY = - this.cursor.y * 0.5
-      this.cameraGroup.position.x += (parallaxX - this.cameraGroup.position.x) * 5 * deltaTime
-      this.cameraGroup.position.y += (parallaxY - this.cameraGroup.position.y) * 5 * deltaTime
+      // const  parallaxX = this.cursor.x * 0.5
+      // const  parallaxY = - this.cursor.y * 0.5
+      // this.cameraGroup.position.x += (parallaxX - this.cameraGroup.position.x) * 5 * deltaTime
+      // this.cameraGroup.position.y += (parallaxY - this.cameraGroup.position.y) * 5 * deltaTime
 
       // Animate Meshes
       // for(const mesh of this.meshes) {
