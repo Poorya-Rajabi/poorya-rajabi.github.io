@@ -15,9 +15,6 @@
       </div>
     </section>
     <!--    <section class="section">-->
-    <!--      <h2>My projects</h2>-->
-    <!--    </section>-->
-    <!--    <section class="section">-->
     <!--      <h2>Contact me</h2>-->
     <!--    </section>-->
   </div>

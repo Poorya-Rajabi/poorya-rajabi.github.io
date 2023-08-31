@@ -12,7 +12,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['firstAnimationIsDone'])
+    ...mapState(['firstAnimationIsDone', 'secondAnimationIsDone'])
   },
   methods: {
     init() {
@@ -43,7 +43,7 @@ export default {
       document.body.appendChild(this.stats.dom)
     },
     createLight() {
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.1)
       this.scene.add(ambientLight)
 
       const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
@@ -109,6 +109,10 @@ export default {
           this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
           this.cameraGroup.position.x = scrollY / this.sizes.height * 7
           this.cameraGroup.rotation.y = scrollY / this.sizes.height * Math.PI / 10
+        }
+
+        if (currentSection === 1 && !this.secondAnimationIsDone) {
+          this.startSecondSectionAnimation()
         }
       })
     },

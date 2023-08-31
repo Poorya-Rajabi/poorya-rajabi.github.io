@@ -29,6 +29,8 @@ export default {
       earth: null,
       overlayMaterial: null,
       secondSection: new THREE.Group(),
+      spaceCraft: null,
+      planets: new THREE.Group(),
       sizes: {
         width: window.innerWidth,
         height: window.innerHeight
