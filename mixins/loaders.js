@@ -43,18 +43,20 @@ export default {
 
       this.loadEarthTexture()
 
-      this.loadCubeTexture()
+      this.loadTarsCubeTexture()
 
       this.loadCorridor()
 
       this.loadTars()
+
+      this.loadSpaceCraft()
     },
     loadEarthTexture() {
       this.earthTextures.map = this.textureLoader.load(
         '/textures/earth/earth-map.jpg'
       )
     },
-    loadCubeTexture() {
+    loadTarsCubeTexture() {
       this.tarsEnv = this.cubeTextureLoader.load([
         '/textures/envMap/3/px.png',
         '/textures/envMap/3/nx.png',
@@ -144,6 +146,47 @@ export default {
       gsap.to(this.tars.position, { z: 11.3, duration: 1, delay: 4.3 }).then(() => {
         this.setFirstAnimationStatus()
       })
+    },
+    loadSpaceCraft() {
+      this.gltfLoader.load(
+        '/models/space-craft/space-craft.gltf',
+        (gltf) =>
+        {
+          gltf.scene.scale.set(0.3, 0.3, 0.3)
+          gltf.scene.rotation.y = Math.PI
+          this.secondSection.add(gltf.scene)
+
+          const planets = new THREE.Group()
+          const planet1 = gltf.scene.children.find(item => item.name === 'Plane005')
+          const planet2 = gltf.scene.children.find(item => item.name === 'Plane002')
+
+          planets.add(planet1, planet2)
+          planets.scale.set(0.3, 0.3, 0.3)
+          this.secondSection.add(planets)
+          planets.position.x = 150
+
+          gsap.to(planets.position, { duration: 5, delay: 2.5, x: 0 }).then(() => {
+            gsap.delayedCall(2, () => {
+              // changeTitle()
+            })
+          })
+          gsap.to(gltf.scene.rotation, { duration: 15, delay: 7.5, x: Math.PI * 8 })
+          gsap.to(planets.rotation, { duration: 15, delay: 7.5, x: Math.PI * 8 })
+          gsap.to(planets.position, { duration: 5, delay: 10, x: -30 }).then(() => {
+            // gsap.to(this.camera.position, { duration: 2, z: 0 })
+            // gsap.to(gltf.scene.position, { duration: 2, z: 4, x: 3 })
+          })
+
+          this.secondSection.position.x = -15
+          this.secondSection.rotation.y = Math.PI * 0.75
+          this.scene.add(this.secondSection)
+
+          // updateAllMaterials()
+        }
+      )
+    },
+    startSecondSectionAnimation() {
+      // TODO
     }
   }
 }

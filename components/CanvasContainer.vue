@@ -28,6 +28,7 @@ export default {
       tars: {},
       earth: null,
       overlayMaterial: null,
+      secondSection: new THREE.Group(),
       sizes: {
         width: window.innerWidth,
         height: window.innerHeight

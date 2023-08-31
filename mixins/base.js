@@ -43,12 +43,15 @@ export default {
       document.body.appendChild(this.stats.dom)
     },
     createLight() {
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+      this.scene.add(ambientLight)
+
       const directionalLight = new THREE.DirectionalLight('#ffffff', 3)
       directionalLight.castShadow = true
       directionalLight.shadow.camera.far = 15
       directionalLight.shadow.mapSize.set(1024, 1024)
       directionalLight.shadow.normalBias = 0.05
-      directionalLight.position.set(0, 1, 3)
+      directionalLight.position.set(3, 2, 3)
       this.scene.add(directionalLight)
     },
     createCamera() {
@@ -61,12 +64,11 @@ export default {
         0.1,
         100
       )
-      this.camera.position.z = 0.01
+      this.cameraGroup.position.z = 0.01
       this.cameraGroup.add(this.camera)
     },
     resizing() {
       window.addEventListener('resize', () => {
-        console.log('resize')
         // Update sizes
         this.sizes.width = window.innerWidth
         this.sizes.height = window.innerHeight
@@ -106,7 +108,7 @@ export default {
         if (this.firstAnimationIsDone) {
           this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
           this.cameraGroup.position.x = scrollY / this.sizes.height * 7
-          this.camera.rotation.y = scrollY / this.sizes.height * Math.PI / 10
+          this.cameraGroup.rotation.y = scrollY / this.sizes.height * Math.PI / 10
         }
       })
     },
