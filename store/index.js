@@ -2,7 +2,20 @@ export const state = () => ({
   isLoading: true,
   loadingProgressRatio: 0,
   firstAnimationIsDone: false,
-  secondAnimationIsDone: false
+  secondAnimationIsDone: false,
+  selectedCompany: null,
+  spaceCraftDefaults: {
+    position: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    rotation: {
+      x: 0,
+      y: Math.PI,
+      z: 0,
+    }
+  },
 })
 
 export const getters = {
@@ -23,6 +36,9 @@ export const mutations = {
   },
   setSecondAnimationStatus(state) {
     state.secondAnimationIsDone = true
+  },
+  setSelectedCompany(state, company) {
+    state.selectedCompany = company
   }
 }
 

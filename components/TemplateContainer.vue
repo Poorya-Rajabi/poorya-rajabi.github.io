@@ -2,16 +2,59 @@
   <div class="main">
     <section class="section">
       <div class="flex flex-col">
-        <span class="mb-0 mt-16 text-5xl">Hello, I'm</span>
-        <h2 ref="name" class="mb-40">Poorya Rajabi</h2>
+        <span class="mb-0 mt-16 text-3xl">Hello, I'm</span>
+        <h2 ref="name" class="text-4xl">Poorya Rajabi</h2>
+        <p class="mb-40 mt-8 text-xl max-w-2xl">A creative developer with over 6 years of experience in design and development across various technologies focusing on front-end development.</p>
       </div>
     </section>
     <section
       v-if="firstAnimationIsDone"
       class="section">
       <div class="flex flex-col">
-        <h2 class="mb-0 mt-16">Experience</h2>
-        <span class="mb-40">Lorem ipsum doet lorem skills javascript</span>
+        <h2 class="mb-0 mt-16 text-4xl">Experience</h2>
+        <ul class="max-w-2xl mt-4">
+          <li
+            v-for="company of companies"
+            :key="company.name"
+            class="mt-4">
+            <div
+              class="cursor-pointer hover:text-sky-400"
+              @click="showCompanyDetails(company)">
+              <div class="flex items-center">
+                <span class="text-3xl mr-4 font-bold">{{ company.name }}</span>
+                <span class="text-sm text-orange-300">{{ company.fromDate }} - {{ company.toDate }}</span>
+              </div>
+              <p class="text-lg mt-1 text-white">
+                {{ company.description }}
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div
+        v-if="!isCompanyDetailsHidden"
+        class="company-details fixed backdrop-blur-3xl w-2/4 top-0 right-0 p-8 -translate-x-1/2 translate-y-2/3 rounded-xl border-white border">
+        <div class="flex justify-between">
+          <div class="flex items-center">
+            <span class="text-3xl mr-4 font-bold">{{ selectedCompany.name }}</span>
+            <span class="text-sm text-orange-300">{{ selectedCompany.fromDate }} - {{ selectedCompany.toDate }}</span>
+          </div>
+          <button
+            class="btn hover:text-orange-300 cursor-pointer"
+            @click="isCompanyDetailsHidden = true">[ close ]</button>
+        </div>
+        <p class="text-lg mt-1 text-white pt-4">
+          {{ selectedCompany.description }}
+        </p>
+        <ul>
+          <li v-for="item of selectedCompany.responsibilities" class="text-white list-disc ml-4 my-4">
+            {{ item }}
+          </li>
+        </ul>
+        <nuxt-link
+          :to="selectedCompany.website"
+          target="_blank"
+          class="text-sky-400">{{ selectedCompany.website }}</nuxt-link>
       </div>
     </section>
     <!--    <section class="section">-->
@@ -21,12 +64,58 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: 'TemplateContainer',
+  data() {
+    return {
+      isCompanyDetailsHidden: true
+    }
+  },
   computed: {
-    ...mapState(['firstAnimationIsDone'])
+    ...mapState(['firstAnimationIsDone', 'selectedCompany']),
+    companies() {
+      return [
+        {
+          name: 'Nobitex',
+          website: 'https://nobitex.ir/',
+          fromDate: 'Sep 2020',
+          toDate: 'Present',
+          description: 'Nobitex is the largest cryptocurrency exchange platform in terms of turnover in Iran with 5M+ users.',
+          responsibilities: [
+            'Created a new large-scale and highly structured SSR panel.',
+            'Engineered the software and developed most of the infrastructure of the codebase.',
+            'Wrote 50+ reusable and reliable components, mixins, plugins, stores, and styles.',
+            'Mentored 4+ new junior team members and reviewed their codes, and trained their for code quality.'
+          ]
+        },
+        {
+          name: 'Rayanparsi',
+          website: 'https://rayanparsi.com/',
+          fromDate: 'Jun 2019',
+          toDate: 'Dec 2019',
+          description: 'Rayanparsi is the most famous platform in Iran that implements many big-scale fintech projects.',
+          responsibilities: [
+            'Implemented a single-page organization Panel that eliminated paper by up to 90% in administrative affairs.',
+            'Improved page speed insight (new protocol) score from 10% to 90% on the mobile version and 97% on the desktop version.',
+            'Connected external software while maintaining information security'
+          ]
+        },
+        {
+          name: 'Bugloos',
+          website: 'https://bugloos.com/',
+          fromDate: 'Jun 2018',
+          toDate: 'May 2019',
+          description: 'Bugloos has more than 15 years of experience in making customized web solutions based in the Netherlands.',
+          responsibilities: [
+            'Created +3 multi languages websites and web applications for international companies.',
+            'Produced 5+ responsive landing pages with modern animation and UI',
+            'Learning the correct organizational culture and establishing effective communication with teammates'
+          ]
+        }
+      ]
+    }
   },
   mounted() {
     const title = this.$refs.name
@@ -38,6 +127,7 @@ export default {
       setTimeout(function() {
         char.textContent = value
         char.classList.add("fade-in")
+        char.classList.add("font-bold")
       }, CHAR_TIME)
     }
 
@@ -64,7 +154,15 @@ export default {
     }
 
     start();
-  }
+  },
+  methods: {
+    ...mapMutations(['setSelectedCompany']),
+    showCompanyDetails(company) {
+      console.log('showCompanyDetails')
+      this.setSelectedCompany(company)
+      this.isCompanyDetailsHidden = false
+    }
+  },
 }
 </script>
 
@@ -78,7 +176,6 @@ export default {
     height: 100vh;
     position: relative;
     color: white;
-    font-size: 7vmin;
     padding-left: 10%;
     padding-right: 10%;
 

@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!firstAnimationIsDone"
     :class="isLoading ? 'opacity-100' : 'opacity-0'"
     class="loading-container flex justify-center items-center h-screen w-screen fixed top-0 left-0 bg-black duration-100 ease-out">
     <!--    <h1 class="loading-text text-white text-8xl">.-.. -&#45;&#45; .- -.. .. -. &#45;&#45;.</h1>-->
@@ -15,13 +16,7 @@ import {mapState} from "vuex";
 export default {
   name: 'LoadingComponent',
   computed: {
-    ...mapState(['loadingProgressRatio', 'isLoading'])
+    ...mapState(['loadingProgressRatio', 'isLoading', 'firstAnimationIsDone'])
   },
 }
 </script>
-
-<style scoped>
-.loading-container {
-
-}
-</style>
