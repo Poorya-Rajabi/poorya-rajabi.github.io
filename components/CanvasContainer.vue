@@ -6,13 +6,14 @@
 import * as THREE from 'three'
 import * as dat from 'lil-gui'
 import base from '@/mixins/base'
-import firstSection from '@/mixins/firstSection'
 import loaders from '@/mixins/loaders'
-import loading from "@/mixins/loading";
+import loading from "@/mixins/loading"
+import firstSection from '@/mixins/firstSection'
+import secondSection from "@/mixins/secondSection"
 
 export default {
   name: 'CanvasContainer',
-  mixins: [base, firstSection, loaders, loading],
+  mixins: [base, firstSection, secondSection, loaders, loading],
   data() {
     return {
       canvas: null,

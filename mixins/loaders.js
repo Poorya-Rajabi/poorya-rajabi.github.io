@@ -170,11 +170,7 @@ export default {
           this.secondSection.add(this.planets)
           this.planets.position.x = 100
 
-          this.gui.add(this.spaceCraft.position, 'x').min(-30).max(30)
-          this.gui.add(this.spaceCraft.position, 'y').min(-30).max(30)
-          this.gui.add(this.spaceCraft.position, 'z').min(-30).max(30)
-          this.gui.add(this.spaceCraft.rotation, 'z').min(-30).max(30)
-          this.gui.add(this.spaceCraft.rotation, 'y').min(-30).max(30)
+          this.spaceCraft.rotation.x = -Math.PI * 6
 
           this.secondSection.position.x = -15
           this.secondSection.rotation.y = Math.PI * 0.75
@@ -187,11 +183,18 @@ export default {
     startSecondSectionAnimation() {
       this.setSecondAnimationStatus()
       gsap.to(this.planets.position, { duration: 3, x: 0, ease: 'power2' }).then(() => {
-        gsap.to(this.spaceCraft.rotation, { duration: 10, x: Math.PI * 6 })
+        gsap.to(this.spaceCraft.rotation, { duration: 10, x: 0 })
         gsap.to(this.planets.rotation, { duration: 10, x: Math.PI * 6 })
         gsap.to(this.planets.position, { duration: 5, delay: 1.5, x: -30 }).then(() => {
           // gsap.to(this.camera.position, { duration: 2, z: 0 })
           // gsap.to(this.spaceCraft.position, { duration: 2, z: 4, x: 3 })
+
+          // this.gui.add(this.spaceCraft.position, 'x').min(-30).max(30)
+          // this.gui.add(this.spaceCraft.position, 'y').min(-30).max(30)
+          // this.gui.add(this.spaceCraft.position, 'z').min(-30).max(30)
+          // this.gui.add(this.spaceCraft.rotation, 'x').min(-30).max(30)
+          // this.gui.add(this.spaceCraft.rotation, 'y').min(-30).max(30)
+          // this.gui.add(this.spaceCraft.rotation, 'z').min(-30).max(30)
         })
       })
     }

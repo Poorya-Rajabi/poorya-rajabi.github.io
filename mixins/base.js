@@ -105,7 +105,7 @@ export default {
           // )
         }
 
-        if (this.firstAnimationIsDone) {
+        if (this.firstAnimationIsDone && scrollY <= this.sizes.height) {
           this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
           this.cameraGroup.position.x = scrollY / this.sizes.height * 7
           this.cameraGroup.rotation.y = scrollY / this.sizes.height * Math.PI / 10

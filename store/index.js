@@ -4,6 +4,7 @@ export const state = () => ({
   firstAnimationIsDone: false,
   secondAnimationIsDone: false,
   selectedCompany: null,
+  spaceCraftNeedUpdate: false,
   spaceCraftDefaults: {
     position: {
       x: 0,
@@ -11,7 +12,7 @@ export const state = () => ({
       z: 0,
     },
     rotation: {
-      x: 0,
+      x: Math.PI * 6,
       y: Math.PI,
       z: 0,
     }
@@ -39,6 +40,12 @@ export const mutations = {
   },
   setSelectedCompany(state, company) {
     state.selectedCompany = company
+  },
+  setSpaceCraftUpdateStatus(state, status) {
+    state.spaceCraftNeedUpdate = status
+  },
+  setSpaceCraftNewValues(state, values) {
+    state.spaceCraftDefaults = values
   }
 }
 

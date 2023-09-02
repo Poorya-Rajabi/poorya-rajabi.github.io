@@ -10,7 +10,9 @@
     <section
       v-if="firstAnimationIsDone"
       class="section">
-      <div class="flex flex-col">
+      <div
+        :class="{ 'opacity-0' : !isCompanyDetailsHidden }"
+        class="flex flex-col transition-opacity duration-500">
         <h2 class="mb-0 mt-16 text-4xl">Experience</h2>
         <ul class="max-w-2xl mt-4">
           <li
@@ -18,10 +20,10 @@
             :key="company.name"
             class="mt-4">
             <div
-              class="cursor-pointer hover:text-sky-400"
+              class="cursor-pointer hover:text-slate-400"
               @click="showCompanyDetails(company)">
               <div class="flex items-center">
-                <span class="text-3xl mr-4 font-bold">{{ company.name }}</span>
+                <span class="text-3xl mr-4 font">{{ company.name }}</span>
                 <span class="text-sm text-orange-300">{{ company.fromDate }} - {{ company.toDate }}</span>
               </div>
               <p class="text-lg mt-1 text-white">
@@ -40,8 +42,8 @@
             <span class="text-sm text-orange-300">{{ selectedCompany.fromDate }} - {{ selectedCompany.toDate }}</span>
           </div>
           <button
-            class="btn hover:text-orange-300 cursor-pointer"
-            @click="isCompanyDetailsHidden = true">[ close ]</button>
+            class="btn text-orange-300 hover:text-orange-200 cursor-pointer"
+            @click="hideCompanyDetails">[ close ]</button>
         </div>
         <p class="text-lg mt-1 text-white pt-4">
           {{ selectedCompany.description }}
@@ -51,10 +53,10 @@
             {{ item }}
           </li>
         </ul>
-        <nuxt-link
-          :to="selectedCompany.website"
+        <a
+          :href="selectedCompany.website"
           target="_blank"
-          class="text-sky-400">{{ selectedCompany.website }}</nuxt-link>
+          class="text-sky-400">{{ selectedCompany.website }}</a>
       </div>
     </section>
     <!--    <section class="section">-->
@@ -88,7 +90,19 @@ export default {
             'Engineered the software and developed most of the infrastructure of the codebase.',
             'Wrote 50+ reusable and reliable components, mixins, plugins, stores, and styles.',
             'Mentored 4+ new junior team members and reviewed their codes, and trained their for code quality.'
-          ]
+          ],
+          spaceCraftValues: {
+            position: {
+              x: -10,
+              y: 0,
+              z: 10,
+            },
+            rotation: {
+              x: 0,
+              y: Math.PI * 0.19,
+              z: 0,
+            }
+          }
         },
         {
           name: 'Rayanparsi',
@@ -100,7 +114,19 @@ export default {
             'Implemented a single-page organization Panel that eliminated paper by up to 90% in administrative affairs.',
             'Improved page speed insight (new protocol) score from 10% to 90% on the mobile version and 97% on the desktop version.',
             'Connected external software while maintaining information security'
-          ]
+          ],
+          spaceCraftValues: {
+            position: {
+              x: -11,
+              y: 0,
+              z: 8,
+            },
+            rotation: {
+              x: 0,
+              y: Math.PI * 1.25,
+              z: Math.PI * 0.25,
+            }
+          }
         },
         {
           name: 'Bugloos',
@@ -112,7 +138,19 @@ export default {
             'Created +3 multi languages websites and web applications for international companies.',
             'Produced 5+ responsive landing pages with modern animation and UI',
             'Learning the correct organizational culture and establishing effective communication with teammates'
-          ]
+          ],
+          spaceCraftValues: {
+            position: {
+              x: -11,
+              y: 0.5,
+              z: 12,
+            },
+            rotation: {
+              x: 0,
+              y: Math.PI * 0.25,
+              z: Math.PI * 0.75,
+            }
+          }
         }
       ]
     }
@@ -156,11 +194,17 @@ export default {
     start();
   },
   methods: {
-    ...mapMutations(['setSelectedCompany']),
+    ...mapMutations(['setSelectedCompany', 'setSpaceCraftUpdateStatus', 'setSpaceCraftNewValues']),
     showCompanyDetails(company) {
-      console.log('showCompanyDetails')
       this.setSelectedCompany(company)
       this.isCompanyDetailsHidden = false
+      this.setSpaceCraftUpdateStatus(true)
+      this.setSpaceCraftNewValues(company.spaceCraftValues)
+    },
+    hideCompanyDetails() {
+      this.setSelectedCompany(null)
+      this.isCompanyDetailsHidden = true
+      this.setSpaceCraftUpdateStatus(false)
     }
   },
 }
