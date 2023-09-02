@@ -53,6 +53,9 @@ export default {
         tailwindcss: {},
         autoprefixer: {}
       }
+    },
+    babel: {
+      compact: true
     }
   }
 }
