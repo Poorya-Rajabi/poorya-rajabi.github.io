@@ -23,7 +23,7 @@
               class="cursor-pointer hover:text-slate-400"
               @click="showCompanyDetails(company)">
               <div class="flex items-center">
-                <span class="text-3xl mr-4 font">{{ company.name }}</span>
+                <span class="text-3xl mr-4 font-medium">{{ company.name }}</span>
                 <span class="text-sm text-orange-300">{{ company.fromDate }} - {{ company.toDate }}</span>
               </div>
               <p class="text-lg mt-1 text-white">
@@ -47,16 +47,23 @@
         </div>
         <p class="text-lg mt-1 text-white pt-4">
           {{ selectedCompany.description }}
+          <a
+            :href="selectedCompany.website"
+            target="_blank"
+            class="text-sky-300 whitespace-nowrap">[ {{ selectedCompany.website }} ]</a>
         </p>
         <ul>
-          <li v-for="item of selectedCompany.responsibilities" class="text-white list-disc ml-4 my-4">
+          <li v-for="item of selectedCompany.responsibilities" class="text-white list-disc ml-4 my-4 font-medium">
             {{ item }}
           </li>
         </ul>
-        <a
-          :href="selectedCompany.website"
-          target="_blank"
-          class="text-sky-400">{{ selectedCompany.website }}</a>
+        <!--<template v-if="selectedCompany.links">-->
+        <!--  <a-->
+        <!--    v-for="link of selectedCompany.links"-->
+        <!--    :href="link.url"-->
+        <!--    target="_blank"-->
+        <!--    class="text-sky-300 whitespace-nowrap">[ {{ link.title }} ]</a>-->
+        <!--</template>-->
       </div>
     </section>
     <!--    <section class="section">-->
@@ -89,8 +96,12 @@ export default {
             'Created a new large-scale and highly structured SSR panel.',
             'Engineered the software and developed most of the infrastructure of the codebase.',
             'Wrote 50+ reusable and reliable components, mixins, plugins, stores, and styles.',
-            'Mentored 4+ new junior team members and reviewed their codes, and trained their for code quality.'
+            'Mentored 4+ new junior team members and reviewed their codes, and trained their for code quality.',
+            'Ideation, design and implementation of more than 6 landing pages for special events in limited time.'
           ],
+          // links: [
+          //   { url: 'https://owshen.io/', title: 'OWSHEN' }
+          // ],
           spaceCraftValues: {
             position: {
               x: -10,
