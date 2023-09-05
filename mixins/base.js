@@ -2,17 +2,18 @@ import { mapState } from "vuex";
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as Stats from 'stats.js'
-// import gsap from 'gsap'
+import gsap from 'gsap'
 
 export default {
   data() {
     return {
       controls: null,
-      stats: null
+      stats: null,
+      isScrolling: false
     }
   },
   computed: {
-    ...mapState(['firstAnimationIsDone', 'secondAnimationIsDone'])
+    ...mapState(['firstAnimationIsDone', 'secondAnimationIsDone']),
   },
   methods: {
     init() {
@@ -83,36 +84,67 @@ export default {
       })
     },
     scrolling() {
-      let currentSection = 0
+      let currentSection = 1
 
-      window.addEventListener('scroll', () => {
-        this.scrollY = window.scrollY
+      window.addEventListener('scroll', (event) => {
+        // this.scrollY = window.scrollY
 
-        const newSection = Math.round(window.scrollY / this.sizes.height)
+        // const newSection = Math.round(window.scrollY / this.sizes.height) + 1
 
-        if (newSection !== currentSection) {
-          currentSection = newSection
+        // if (newSection !== currentSection) {
+        //   currentSection = newSection
+        //
+        //   // gsap.to(
+        //   //   this.meshes[currentSection].rotation,
+        //   //   {
+        //   //     duration: 1.5,
+        //   //     ease: 'power2.inOut',
+        //   //     x: '+=5',
+        //   //     y: '+=6',
+        //   //     z: '+=1.5'
+        //   //   }
+        //   // )
+        // }
 
-          // gsap.to(
-          //   this.meshes[currentSection].rotation,
-          //   {
-          //     duration: 1.5,
-          //     ease: 'power2.inOut',
-          //     x: '+=5',
-          //     y: '+=6',
-          //     z: '+=1.5'
-          //   }
-          // )
-        }
+        // if (this.firstAnimationIsDone && scrollY <= this.sizes.height) {
+        //   this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
+        //   this.cameraGroup.position.x = scrollY / this.sizes.height * 7
+        //   this.cameraGroup.rotation.y = scrollY / this.sizes.height * Math.PI / 10
+        // }
 
-        if (this.firstAnimationIsDone && scrollY <= this.sizes.height) {
-          this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
-          this.cameraGroup.position.x = scrollY / this.sizes.height * 7
-          this.cameraGroup.rotation.y = scrollY / this.sizes.height * Math.PI / 10
-        }
+        // if (currentSection === 1 && !this.secondAnimationIsDone) {
+        //   this.startSecondSectionAnimation()
+        // }
 
-        if (currentSection === 1 && !this.secondAnimationIsDone) {
-          this.startSecondSectionAnimation()
+        if(!this.isScrolling) {
+          const offset = Math.floor(window.scrollY / this.sizes.height) + 1
+          const next = offset >= currentSection ? currentSection + 1 : currentSection - 1
+          // console.log(currentSection, next, window.scrollY)
+          this.isScrolling = true
+          location.href = `#section-${next}`
+          if (next === 1) {
+            gsap.to(this.camera.position, { z: 17, x: 0, duration: 2, ease: "power2" }).then(() => {
+              this.isScrolling = false
+            })
+            // this.startSecondSectionAnimation()
+          }
+          if (next === 2) {
+            gsap.to(this.cameraGroup.rotation, { z: 0, duration: 2, ease: "power2" })
+            gsap.to(this.camera.position, { z: 2, x: 7, duration: 2, ease: "power2" }).then(() => {
+              this.isScrolling = false
+            })
+            this.startSecondSectionAnimation()
+          }
+          if (next === 3) {
+            gsap.to(this.cameraGroup.rotation, { z: Math.PI * 0.5, duration: 2, ease: "power2" }).then(() => {
+              this.isScrolling = false
+            })
+          }
+          currentSection = next
+        } else {
+          event.preventDefault()
+          location.href = `#section-${currentSection}`
+          history.replaceState({}, '', '/')
         }
       })
     },

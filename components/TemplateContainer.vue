@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <section class="section">
+    <section
+      id="section-1"
+      class="section">
       <div class="flex flex-col">
         <span class="mb-0 mt-16 text-3xl">Hello, I'm</span>
         <h2 ref="name" class="text-4xl">Poorya Rajabi</h2>
@@ -8,6 +10,7 @@
       </div>
     </section>
     <section
+      id="section-2"
       v-if="firstAnimationIsDone"
       class="section">
       <div
@@ -66,9 +69,19 @@
         <!--</template>-->
       </div>
     </section>
-    <!--    <section class="section">-->
-    <!--      <h2>Contact me</h2>-->
-    <!--    </section>-->
+    <section
+      id="section-3"
+      class="section overflow-hidden flex flex-col justify-center h-screen">
+      <h2 class="mb-0 mt-16 text-4xl">Skills</h2>
+      <div class="bg-white my-16 overflow-hidden w-screen relative">
+        <div class="text-black ticker-container to-left flex w-screen relative">
+          <span
+            v-for="(skill, index) of skills"
+            :key="index"
+            class="text-8xl font-bold mx-16 whitespace-nowrap uppercase">{{ skill }}</span>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -164,6 +177,9 @@ export default {
           }
         }
       ]
+    },
+    skills() {
+      return ['HTML', 'CSS', 'Javascript', 'Vue.js', 'Nuxt.js', 'Three.js', 'Tailwind', 'Bootstrap', 'Adobe Xd']
     }
   },
   mounted() {
@@ -252,6 +268,7 @@ h2 {
   font-weight: normal;
   letter-spacing: 0.5rem;
 }
+
 .char {
   color: #fff;
   transition: color ease-out 0.3s, text-shadow ease-out 0.3s;
@@ -261,6 +278,50 @@ h2 {
     color: #0cf;
     transition: color ease-out 0.3s, text-shadow ease-out 0.3s;
     text-shadow: 0 0 1rem #0cf;
+  }
+}
+
+#section-3 {
+  .ticker-container {
+    &.to-left {
+      float: left;
+      animation-name: tickerAnimationToLeft;
+    }
+
+    &.to-right {
+      float: right;
+      animation-name: tickerAnimationToRight;
+    }
+
+    &:hover {
+      animation-play-state: paused;
+    }
+
+    animation: 20s linear infinite;
+
+    & > div {
+      white-space: nowrap;
+    }
+  }
+
+  @keyframes tickerAnimationToLeft {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(-270%);
+    }
+  }
+
+  @keyframes tickerAnimationToRight {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 }
 </style>
