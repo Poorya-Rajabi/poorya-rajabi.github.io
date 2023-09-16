@@ -1,8 +1,4 @@
-@font-face {
-  font-family: montserrat;
-  src: url('/assets/fonts/montserrat.ttf');
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 @tailwind base;
 @tailwind components;
