@@ -7,5 +7,6 @@
 @layer base {
   html {
     font-family: montserrat, ui-sans-serif, serif !important;
+    user-select: none;
   }
 }

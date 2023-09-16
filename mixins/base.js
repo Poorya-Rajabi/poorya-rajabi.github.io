@@ -133,7 +133,7 @@ export default {
             gsap.to(this.camera.position, { z: 2, x: 7, duration: 2, ease: "power2" }).then(() => {
               this.isScrolling = false
             })
-            this.startSecondSectionAnimation()
+            !this.secondAnimationIsDone && this.startSecondSectionAnimation()
           }
           if (next === 3) {
             gsap.to(this.cameraGroup.rotation, { z: Math.PI * 0.5, duration: 2, ease: "power2" }).then(() => {
