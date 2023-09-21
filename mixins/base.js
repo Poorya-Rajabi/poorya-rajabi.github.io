@@ -32,8 +32,6 @@ export default {
       this.createRenderer()
 
       this.scrolling()
-
-      this.cursorMoving()
     },
     statsInit() {
       this.stats = new Stats()
@@ -87,55 +85,24 @@ export default {
       let currentSection = 1
 
       window.addEventListener('scroll', (event) => {
-        // this.scrollY = window.scrollY
-
-        // const newSection = Math.round(window.scrollY / this.sizes.height) + 1
-
-        // if (newSection !== currentSection) {
-        //   currentSection = newSection
-        //
-        //   // gsap.to(
-        //   //   this.meshes[currentSection].rotation,
-        //   //   {
-        //   //     duration: 1.5,
-        //   //     ease: 'power2.inOut',
-        //   //     x: '+=5',
-        //   //     y: '+=6',
-        //   //     z: '+=1.5'
-        //   //   }
-        //   // )
-        // }
-
-        // if (this.firstAnimationIsDone && scrollY <= this.sizes.height) {
-        //   this.camera.position.z = 17 - (scrollY / this.sizes.height * 15)
-        //   this.cameraGroup.position.x = scrollY / this.sizes.height * 7
-        //   this.cameraGroup.rotation.y = scrollY / this.sizes.height * Math.PI / 10
-        // }
-
-        // if (currentSection === 1 && !this.secondAnimationIsDone) {
-        //   this.startSecondSectionAnimation()
-        // }
 
         if(!this.isScrolling) {
+          this.isScrolling = true
           const offset = Math.floor(window.scrollY / this.sizes.height) + 1
           const next = offset >= currentSection ? currentSection + 1 : currentSection - 1
-          // console.log(currentSection, next, window.scrollY)
-          this.isScrolling = true
           location.href = `#section-${next}`
+
           if (next === 1) {
             gsap.to(this.camera.position, { z: 17, x: 0, duration: 2, ease: "power2" }).then(() => {
               this.isScrolling = false
             })
-            // this.startSecondSectionAnimation()
-          }
-          if (next === 2) {
+          } else if (next === 2) {
             gsap.to(this.cameraGroup.rotation, { z: 0, duration: 2, ease: "power2" })
             gsap.to(this.camera.position, { z: 2, x: 7, duration: 2, ease: "power2" }).then(() => {
               this.isScrolling = false
             })
             !this.secondAnimationIsDone && this.startSecondSectionAnimation()
-          }
-          if (next === 3) {
+          } else if (next === 3) {
             gsap.to(this.cameraGroup.rotation, { z: Math.PI * 0.5, duration: 2, ease: "power2" }).then(() => {
               this.isScrolling = false
             })
@@ -146,12 +113,6 @@ export default {
           location.href = `#section-${currentSection}`
           history.replaceState({}, '', '/')
         }
-      })
-    },
-    cursorMoving() {
-      window.addEventListener('mousemove', (event) => {
-        this.cursor.x = (event.clientX / this.sizes.width) - 0.5
-        this.cursor.y = (event.clientY / this.sizes.height) - 0.5
       })
     },
     createRenderer() {
@@ -173,22 +134,6 @@ export default {
       const elapsedTime = this.clock.getElapsedTime()
       const deltaTime = elapsedTime - this.previousTime
       this.previousTime = elapsedTime
-
-      // Scroll
-      // this.camera.position.z = - scrollY / this.sizes.height
-      // this.camera.rotation.y = - scrollY / this.sizes.height
-
-      // Parallax
-      // const  parallaxX = this.cursor.x * 0.5
-      // const  parallaxY = - this.cursor.y * 0.5
-      // this.cameraGroup.position.x += (parallaxX - this.cameraGroup.position.x) * 5 * deltaTime
-      // this.cameraGroup.position.y += (parallaxY - this.cameraGroup.position.y) * 5 * deltaTime
-
-      // Animate Meshes
-      // for(const mesh of this.meshes) {
-      //   mesh.rotation.x += deltaTime * 0.1
-      //   mesh.rotation.y += deltaTime * 0.12
-      // }
 
       // Update Control
       if (this.controls) {

@@ -24,8 +24,6 @@ export default {
       clock: new THREE.Clock(),
       previousTime: 0,
       objectsDistance: 4,
-      scrollY: window.scrollY,
-      cursor: new THREE.Vector2(),
       tars: {},
       earth: null,
       overlayMaterial: null,
@@ -35,9 +33,6 @@ export default {
       sizes: {
         width: window.innerWidth,
         height: window.innerHeight
-      },
-      parameters: {
-        materialColor: '#317ea5'
       },
       gui: new dat.GUI()
     }
@@ -74,7 +69,7 @@ export default {
         new THREE.BufferAttribute(positions, 3)
       )
       const particlesMaterial = new THREE.PointsMaterial({
-        color: this.parameters.materialColor,
+        color: '#317ea5',
         sizeAttenuation: true,
         size: 0.03
       })
